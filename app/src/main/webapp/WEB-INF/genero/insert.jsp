@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8" />
-        <title>Novo Gênero/title>
+        <title>Novo Gênero</title>
         <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     </head>
     <body>
