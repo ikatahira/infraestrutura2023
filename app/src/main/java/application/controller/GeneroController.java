@@ -2,6 +2,8 @@ package application.controller;
 
 import java.util.Optional;
 
+import javax.swing.text.html.Option;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,8 +37,7 @@ public String insert(){
 }
 
 
-@RequestMapping
-(value ="/insert", method = RequestMethod.POST)
+@RequestMapping(value ="/insert", method = RequestMethod.POST)
 public String insert(@RequestParam("nome") String nome){
     Genero genero =new Genero();
     genero.setNome(nome);
@@ -47,21 +48,28 @@ public String insert(@RequestParam("nome") String nome){
 }
 
 @RequestMapping("/update")
-
-public String update(){
-    return "/genero/update";
-}
-
-@RequestMapping(value ="/update", method = RequestMethod.POST)
-public String update(@RequestParam("id") int id, @RequestParam("nome") String nome ){
+public String update(Model model,@RequestParam("id") int id){
  Optional<Genero> genero = generoRepo.findById(id);   
     if(genero.isPresent()){
-         genero.get().setNome(nome);
-         generoRepo.save(genero.get());
+         model.addAttribute("genero", genero.get());
+         return "/genero/update";
     }
     return "redirect:/genero/list";
 }
 
+
+@RequestMapping(value="/update", method = RequestMethod.POST)
+public String update(
+    @RequestParam("id") int id,
+    @RequestParam("nome")String nome
+
+){
+    Optional<Genero> genero = generoRepo.findById(id);
+    if(genero.isPresent()){
+        generoRepo.save(genero.get());
+    }
+    return "redirect:/genero/list";
+}
 @RequestMapping("/delete")
 public String delete(Model model, @RequestParam("id") int id){
    Optional<Genero> genero = generoRepo.findById(id);
